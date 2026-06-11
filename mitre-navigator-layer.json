@@ -1,0 +1,179 @@
+{
+  "name": "Sentinel Detection Lab - ATT&CK Coverage",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "MITRE ATT&CK techniques detected in the Microsoft Sentinel Detection Lab by Atharva Acharya",
+  "filters": {
+    "platforms": ["Windows"]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1110",
+      "tactic": "credential-access",
+      "color": "#e74c3c",
+      "comment": "Detected via Event ID 4625 - Multiple failed logon attempts. KQL rule: Brute Force - Multiple Failed Logon Attempts. IR Report: IR-001.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1110.001",
+      "tactic": "credential-access",
+      "color": "#e74c3c",
+      "comment": "Password Guessing - 20 failed logon attempts against non-existent account fakeuser detected via Event ID 4625.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1136",
+      "tactic": "persistence",
+      "color": "#e67e22",
+      "comment": "Detected via Event ID 4720 - New local user account created. KQL rule: New Local User Account Created. IR Report: IR-002.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1136.001",
+      "tactic": "persistence",
+      "color": "#e67e22",
+      "comment": "Local Account - backdooruser created by labadmin detected via Event ID 4720.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1098",
+      "tactic": "privilege-escalation",
+      "color": "#9b59b6",
+      "comment": "Detected via Event ID 4732 - User added to local Administrators group. KQL rule: User Added to Administrators Group. IR Report: IR-003.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1082",
+      "tactic": "discovery",
+      "color": "#3498db",
+      "comment": "Detected via Event ID 4688 - systeminfo.exe, ipconfig.exe executed. KQL rule: Suspicious Reconnaissance Commands Detected. IR Report: IR-004.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1033",
+      "tactic": "discovery",
+      "color": "#3498db",
+      "comment": "Detected via Event ID 4688 - whoami.exe executed during reconnaissance phase.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1087",
+      "tactic": "discovery",
+      "color": "#3498db",
+      "comment": "Detected via Event ID 4688 - net user and net localgroup executed during reconnaissance phase.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1087.001",
+      "tactic": "discovery",
+      "color": "#3498db",
+      "comment": "Local Account enumeration via net user command.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1070",
+      "tactic": "defense-evasion",
+      "color": "#1abc9c",
+      "comment": "Detected via Event ID 1102 - Security event log cleared. KQL rule: Security Event Log Cleared. IR Report: IR-005.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": true,
+      "score": 100
+    },
+    {
+      "techniqueID": "T1070.001",
+      "tactic": "defense-evasion",
+      "color": "#1abc9c",
+      "comment": "Clear Windows Event Logs - wevtutil cl Security executed on sentinel-win-vm.",
+      "enabled": true,
+      "metadata": [],
+      "links": [],
+      "showSubtechniques": false,
+      "score": 100
+    }
+  ],
+  "gradient": {
+    "colors": ["#ffffff", "#e74c3c"],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "color": "#e74c3c",
+      "label": "Credential Access"
+    },
+    {
+      "color": "#e67e22",
+      "label": "Persistence"
+    },
+    {
+      "color": "#9b59b6",
+      "label": "Privilege Escalation"
+    },
+    {
+      "color": "#3498db",
+      "label": "Discovery"
+    },
+    {
+      "color": "#1abc9c",
+      "label": "Defense Evasion"
+    }
+  ],
+  "metadata": [],
+  "links": [],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#1a1a2e",
+  "selectTechniquesAcrossTactics": false,
+  "selectSubtechniquesWithParent": false
+}
