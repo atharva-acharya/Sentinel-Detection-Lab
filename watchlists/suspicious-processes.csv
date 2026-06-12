@@ -1,0 +1,11 @@
+ProcessName,Category,MITRETechnique
+whoami.exe,Reconnaissance,T1033
+net.exe,Reconnaissance,T1087
+ipconfig.exe,Reconnaissance,T1016
+systeminfo.exe,Reconnaissance,T1082
+mimikatz.exe,Credential Dumping,T1003
+procdump.exe,Credential Dumping,T1003
+wevtutil.exe,Defense Evasion,T1070
+certutil.exe,Defense Evasion,T1140
+mshta.exe,Execution,T1218
+regsvr32.exe,Execution,T1218
