@@ -206,14 +206,14 @@ wevtutil cl Security
 
 This lab directly covers the following Microsoft SC-200 (Security Operations Analyst) exam objectives:
 
-| Objective | Coverage |
-|---|---|
-| Configure Microsoft Sentinel workspace | Deployed Log Analytics workspace, connected Sentinel |
-| Connect data sources using data connectors | Windows Security Events via AMA, Azure Activity Logs |
-| Configure analytics rules | 5 scheduled KQL analytics rules with entity mapping |
-| Investigate incidents in Microsoft Sentinel | Investigation graph, entity pages, hunting queries |
-| Identify threats using KQL | 5 detection queries across multiple MITRE ATT&CK tactics |
-| Configure automated responses | Alert grouping, incident creation settings |
+| Objective                                   | Coverage                                                 |
+| ------------------------------------------- | -------------------------------------------------------- |
+| Configure Microsoft Sentinel workspace      | Deployed Log Analytics workspace, connected Sentinel     |
+| Connect data sources using data connectors  | Windows Security Events via AMA                          |
+| Configure analytics rules                   | 5 scheduled KQL analytics rules with entity mapping      |
+| Investigate incidents in Microsoft Sentinel | Investigation graph, entity pages, hunting queries       |
+| Identify threats using KQL                  | 5 detection queries across multiple MITRE ATT&CK tactics |
+| Configure automated responses               | Alert grouping, incident creation settings               |
 ## Author
 
 **Atharva Acharya**  
