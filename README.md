@@ -219,4 +219,4 @@ This lab directly covers the following Microsoft SC-200 (Security Operations Ana
 **Atharva Acharya**  
 MSc Cyber Security Engineering, University of Warwick  
 CDSA Certified (HackTheBox, June 2026)  
-[GitHub](https://github.com/atharva-acharya) | [LinkedIn](https://linkedin.com/in/atharva-acharya)
+[GitHub](https://github.com/atharva-acharya) | [LinkedIn](www.linkedin.com/in/atharva-acharya-cyber)
