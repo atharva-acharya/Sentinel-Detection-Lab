@@ -1,5 +1,19 @@
 # Microsoft Sentinel Detection Lab
 
+## In 30 seconds
+
+**Question:** If someone on an Azure Windows server creates a backdoor admin account and then clears the Security log, does Microsoft Sentinel still catch it and keep the evidence?
+
+**Finding:** In this personal Azure lab, 5 KQL analytics rules raised 14 incidents across 5 techniques, including 20 failed logons in 10 seconds and a new local account added to Administrators 4 minutes 15 seconds after it was created. The log clear (Event ID 1102) was captured and every earlier event stayed in Sentinel. Investigation also found a gap: the account creation and the admin escalation fired as two separate incidents.
+
+**Recommendation:** Correlate account creation (4720) and Administrators group changes (4732) on the same host into one High incident, and alert on 3 or more discovery commands within 5 seconds rather than on single commands, to cut false positives. Forward System and Application logs as well as Security, alert on any log clear, and keep workspace data for at least 90 days.
+
+**Skills shown:** Microsoft Sentinel, KQL, Azure Monitor Agent, Log Analytics, Windows Security events, incident investigation and hunting, MITRE ATT&CK.
+
+**Start here:** [IR-003 User Added to Administrators](ir-reports/IR-003-User-Added-to-Administrators.md), where a hunting query rebuilds the two-step persistence chain and exposes the correlation gap.
+
+---
+
 A cloud-based SIEM detection lab built on Microsoft Sentinel, demonstrating end-to-end threat detection across 5 attack techniques. Includes KQL analytics rules, automated incident generation, and IR reports mapped to MITRE ATT&CK.
 
 ![Analytics Rules](screenshots/analytics-rules.png)
@@ -120,7 +134,8 @@ SecurityEvent
 
 ## MITRE ATT&CK Coverage
 
-![MITRE ATT&CK Navigator](screenshots/mitre-navigator.png)
+<!-- screenshots/mitre-navigator.png is not in the repo yet. Export it from ATT&CK Navigator, then restore:
+![MITRE ATT&CK Navigator](screenshots/mitre-navigator.png) -->
 
 Navigator layer file: [mitre-navigator-layer.json](mitre-navigator-layer.json)
 
@@ -219,4 +234,5 @@ This lab directly covers the following Microsoft SC-200 (Security Operations Ana
 **Atharva Acharya**  
 MSc Cyber Security Engineering, University of Warwick  
 CDSA Certified (HackTheBox, June 2026)  
+Microsoft SC-200 Certified (Security Operations Analyst Associate, 2026)  
 [GitHub](https://github.com/atharva-acharya) | [LinkedIn](www.linkedin.com/in/atharva-acharya-cyber)
