@@ -2,11 +2,21 @@
 
 ## In 30 seconds
 
+A personal Azure lab: I simulated five attacks on one Windows Server VM and wrote five KQL analytics rules in Microsoft Sentinel to catch them. This is lab work, not production monitoring.
+
 **Question:** If someone on an Azure Windows server creates a backdoor admin account and then clears the Security log, does Microsoft Sentinel still catch it and keep the evidence?
 
-**Finding:** In this personal Azure lab, 5 KQL analytics rules raised 14 incidents across 5 techniques, including 20 failed logons in 10 seconds and a new local account added to Administrators 4 minutes 15 seconds after it was created. The log clear (Event ID 1102) was captured and every earlier event stayed in Sentinel. Investigation also found a gap: the account creation and the admin escalation fired as two separate incidents.
+**Finding:** In this personal Azure lab, 5 KQL analytics rules raised 14 incidents across 5 techniques, including 20 failed logons in 10 seconds and a new local account added to Administrators 4 minutes 15 seconds after it was created. The log clear (Event ID 1102) was captured and every earlier event stayed in Sentinel. Investigation also found a gap: the account creation and the admin escalation fired as two separate incidents. All activity was simulated by me, so no true or false positive rate was measured.
 
 **Recommendation:** Correlate account creation (4720) and Administrators group changes (4732) on the same host into one High incident, and alert on 3 or more discovery commands within 5 seconds rather than on single commands, to cut false positives. Forward System and Application logs as well as Security, alert on any log clear, and keep workspace data for at least 90 days.
+
+| Rule | MITRE technique | What it caught | Report |
+|---|---|---|---|
+| Brute Force - Multiple Failed Logon Attempts | T1110 Brute Force | 20 failed logons (4625) against a non-existent account in 10 seconds | [IR-001](ir-reports/IR-001-Brute-Force-Failed-Logons.md) |
+| New Local User Account Created | T1136.001 Local Account | `backdooruser` created by `labadmin` (4720) | [IR-002](ir-reports/IR-002-New-Local-User-Created.md) |
+| User Added to Administrators Group | T1098 Account Manipulation | `backdooruser` added to Administrators (4732) 4 min 15 s after creation, as a separate incident | [IR-003](ir-reports/IR-003-User-Added-to-Administrators.md) |
+| Suspicious Reconnaissance Commands | T1082 System Information Discovery | whoami, ipconfig, systeminfo and net commands run within one second (4688) | [IR-004](ir-reports/IR-004-Suspicious-Reconnaissance-Commands.md) |
+| Security Event Log Cleared | T1070.001 Clear Windows Event Logs | `wevtutil cl Security` (1102), with all earlier events preserved | [IR-005](ir-reports/IR-005-Security-Log-Cleared.md) |
 
 **Skills shown:** Microsoft Sentinel, KQL, Azure Monitor Agent, Log Analytics, Windows Security events, incident investigation and hunting, MITRE ATT&CK.
 
@@ -143,9 +153,9 @@ Navigator layer file: [mitre-navigator-layer.json](mitre-navigator-layer.json)
 |---|---|---|
 | Credential Access | T1110 - Brute Force | T1110.001 - Password Guessing |
 | Persistence | T1136 - Create Account | T1136.001 - Local Account |
-| Privilege Escalation | T1098 - Account Manipulation | — |
-| Discovery | T1082 - System Information Discovery | — |
-| Discovery | T1033 - System Owner/User Discovery | — |
+| Privilege Escalation | T1098 - Account Manipulation | - |
+| Discovery | T1082 - System Information Discovery | - |
+| Discovery | T1033 - System Owner/User Discovery | - |
 | Discovery | T1087 - Account Discovery | T1087.001 - Local Account |
 | Defense Evasion | T1070 - Indicator Removal | T1070.001 - Clear Windows Event Logs |
 
@@ -204,19 +214,21 @@ wevtutil cl Security
 
 ## Key Findings
 
-1. **Cloud SIEM prevents local log clearing** — Event ID 1102 was captured by Sentinel before the local Security log was wiped, demonstrating that AMA-based ingestion makes local evidence destruction ineffective.
+1. **Cloud SIEM prevents local log clearing:** Event ID 1102 was captured by Sentinel before the local Security log was wiped, demonstrating that AMA-based ingestion makes local evidence destruction ineffective.
 
-2. **Sub-second reconnaissance detection** — Multiple discovery commands executed within a single second were detected as scripted post-exploitation activity, not legitimate admin work.
+2. **Sub-second reconnaissance:** Four discovery commands ran within a single second, a pattern that points to scripted post-exploitation activity rather than legitimate admin work.
 
-3. **Attack chain correlation** — IR-002 (account creation) and IR-003 (privilege escalation) occurring within 4 minutes on the same host represent a complete persistence chain that warrants a single High-severity incident.
+3. **Attack chain correlation:** IR-002 (account creation) and IR-003 (privilege escalation) occurring within 4 minutes on the same host represent a complete persistence chain that warrants a single High-severity incident.
 
 ---
 
 ## Related Projects
 
-- [AD SOC Detection Lab](https://github.com/atharva-acharya/AD-SOC-Detection-Lab) — On-premises Active Directory attack detection lab with 7 AD attacks, KQL rules, and IR reports
+- [AD SOC Detection Lab](https://github.com/atharva-acharya/AD-SOC-Detection-Lab): on-premises Active Directory lab with 7 AD attacks, Elastic SIEM KQL rules, and IR reports
+- [Splunk SIEM Investigation Lab](https://github.com/atharva-acharya/Splunk-SOC-Lab): Splunk SPL rules and IR reports tracing a web attack chain in the BOTS v3 dataset
 
 ---
+
 ## SC-200 Exam Objective Coverage
 
 This lab directly covers the following Microsoft SC-200 (Security Operations Analyst) exam objectives:
@@ -229,10 +241,13 @@ This lab directly covers the following Microsoft SC-200 (Security Operations Ana
 | Investigate incidents in Microsoft Sentinel | Investigation graph, entity pages, hunting queries       |
 | Identify threats using KQL                  | 5 detection queries across multiple MITRE ATT&CK tactics |
 | Configure automated responses               | Alert grouping, incident creation settings               |
+
+---
+
 ## Author
 
 **Atharva Acharya**  
 MSc Cyber Security Engineering, University of Warwick  
 CDSA Certified (HackTheBox, June 2026)  
 Microsoft SC-200 Certified (Security Operations Analyst Associate, 2026)  
-[GitHub](https://github.com/atharva-acharya) | [LinkedIn](www.linkedin.com/in/atharva-acharya-cyber)
+[GitHub](https://github.com/atharva-acharya) | [LinkedIn](https://www.linkedin.com/in/atharva-acharya-cyber)
